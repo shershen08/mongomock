@@ -74,6 +74,18 @@ Collection.prototype.insert = function (doc, options, callback) {
 	callback(null, doc);
 };
 
+Collection.prototype.create = function (doc, options) {
+
+	if (options === null) {
+		options = {};
+	}
+	
+	_(this._data).insert(doc);
+	this._restore();
+
+	return Promise.resolve(doc)
+};
+
 Collection.prototype.update = function (query, modifier, options, callback) {
 	if ('function' === typeof options) {
 		callback = options, options = {};
